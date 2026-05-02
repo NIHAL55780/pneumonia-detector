@@ -1,5 +1,5 @@
 import kagglehub
-from dataset import get_data_loaders
+from backend.dataset import get_data_loaders
 
 # Get dataset path
 path = kagglehub.dataset_download("paultimothymooney/chest-xray-pneumonia")
