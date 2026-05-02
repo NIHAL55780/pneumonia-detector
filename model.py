@@ -12,9 +12,8 @@ def get_model():
     for param in model.layer4.parameters():
         param.requires_grad = True #unfreezes the parameters of the last convolutional block (layer4) of the ResNet-50 model, allowing them to be updated during training. This can help the model learn more task-specific features while still benefiting from the pre-trained weights in the earlier layers.
     
-    model.fc = nn.Sequential(
-        nn.Linear(model.fc.in_features, 1), #adds a fully connected layer with 1 output feature, which takes the output from the pre-trained model's final layer as input.
-        nn.Sigmoid() #applies a sigmoid activation function to the output of the fully connected layer, which is appropriate for binary classification tasks like pneumonia detection
-    )
+    in_features = model.fc.in_features #retrieves the number of input features to the fully connected layer of the ResNet-50 model. This is necessary because we will replace the original fully connected layer with a new one that has a different number of output features (in this case, 1 for binary classification).
+    
+    model.fc = nn.Linear(in_features, 1) #replaces the original fully connected layer of the ResNet-50 model with a new linear layer that has one output feature. This is suitable for our binary classification task (pneumonia vs. normal).
     
     return model

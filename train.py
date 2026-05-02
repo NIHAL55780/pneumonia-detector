@@ -17,7 +17,8 @@ train_loader, val_loader = get_data_loaders(path)
 model = get_model().to(device)
 
 # 🔹 Loss function
-criterion = nn.BCELoss()
+pos_weight = torch.tensor([0.5]).to(device)  # tune this
+criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
 # 🔹 Optimizer (fine-tuning)
 optimizer = optim.Adam(
@@ -25,7 +26,7 @@ optimizer = optim.Adam(
     lr=0.0001
 )
 
-EPOCHS = 5
+EPOCHS = 3
 
 best_loss = float("inf")
 

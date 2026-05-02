@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Models
+*.pth
+
+# Dataset
+data/
+kagglehub/
+
+# OS
+.DS_Store

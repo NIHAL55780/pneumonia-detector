@@ -13,7 +13,7 @@ _, val_loader = get_data_loaders(path)
 
 # 🔹 Load model
 model = get_model().to(device)
-model.load_state_dict(torch.load("pneumonia_model.pth"))
+model.load_state_dict(torch.load("best_model.pth"))
 model.eval()
 
 correct = 0
@@ -27,6 +27,7 @@ with torch.no_grad():
         labels = labels.to(device)
 
         outputs = model(images)
+        outputs = torch.sigmoid(outputs)
         preds = (outputs > 0.5).float().squeeze()
 
         all_preds.extend(preds.cpu().numpy())
